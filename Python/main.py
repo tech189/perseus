@@ -4,7 +4,7 @@ import re
 url = "http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0133"
 eng_url = "http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0134%3Abook%3D1%3Acard%3D1"
 html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
-texts = html_soup.find('div', attrs={'class': 'text_container'}).get_text().replace('\n','')
+texts = html_soup.find('div', attrs={'class': 'text_container'}).get_text()
 texts = re.sub('\s{2,}',' ', texts)
 r = "[]%$£@±^&*+=\{\}"
 
