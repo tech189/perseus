@@ -6,7 +6,7 @@ eng_url = "http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01
 html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
 texts = html_soup.find('div', attrs={'class': 'text_container'}).get_text().replace('\n','')
 texts = re.sub('\s{2,}',' ', texts)
-r = "[]"
+r = "[]%$£@±^&*+=\{\}"
 
 for character in r:
          texts = texts.replace(character,"")
