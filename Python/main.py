@@ -14,7 +14,7 @@ for character in r:
          texts = texts.replace(character,"")
 
 result = ''.join([i for i in texts if not i.isdigit()])
-print(result)
+#print(result)
 
 # Prints all the script tags:
 #for a in html_soup.find_all('script'):
@@ -22,9 +22,12 @@ print(result)
 
 
 # Prints the first part of the array
-print(html_soup.find_all("script")[0])
+# print(html_soup.find_all("script")[0])
 
 # Doesn't work why?!??!!?
-for a in html_soup.find_all("script"):
-    if a.re.match("(addDocument)"):
-        print(a)
+books = []
+for script in html_soup.find_all("script"):
+    if re.search("(addDocument\((.+)Perseus(.+))", str(script)):
+         regex = re.compile('(?<=addDocument\(\')(.*)(?=\'\);)')
+         books.append(regex.findall(str(script))[0])
+print(books)
