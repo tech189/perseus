@@ -2,7 +2,7 @@
 from bs4 import BeautifulSoup
 import urllib.request
 import re
-from selenium import webdriver
+
 url = "http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0133"
 eng_url = "http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0134%3Abook%3D1%3Acard%3D1"
 html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
@@ -16,18 +16,16 @@ for character in r:
 result = ''.join([i for i in texts if not i.isdigit()])
 #print(result)
 
-# Prints all the script tags:
-#for a in html_soup.find_all('script'):
-    #print("Found the script tag:", a)
-
-
-# Prints the first part of the array
-# print(html_soup.find_all("script")[0])
-
-# Doesn't work why?!??!!?
-books = []
+books = {}
+a = 0
 for script in html_soup.find_all("script"):
+    
     if re.search("(addDocument\((.+)Perseus(.+))", str(script)):
-         regex = re.compile('(?<=addDocument\(\')(.*)(?=\'\);)')
-         books.append(regex.findall(str(script))[0])
+        regex = re.compile('(?<=addDocument\(\')(.*)(?=\'\);)')
+        #books.append(regex.findall(str(script))[0])
+        other_book_url = "http://www.perseus.tufts.edu/hopper/text?doc=" + regex.findall(str(script))[0]
+        other_book_soup = BeautifulSoup(urllib.request.urlopen(other_book_url).read(),"html.parser")
+        title = other_book_soup.find("div", attrs={"id": "header_text"}).get_text()
+        books[title] = other_book_url
+        a += 1
 print(books)
