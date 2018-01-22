@@ -1,0 +1,14 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+}
+
+.header{
+    font-size: 175%;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5%
+}
+
+nav{
+    padding: 1%
+}
