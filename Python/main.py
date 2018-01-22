@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 from bs4 import BeautifulSoup
 import urllib.request
-import re
+import re, ast
 
 if input("Demo text? (y/n) ").upper() == "Y":
     url ="http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0133"
@@ -32,13 +32,6 @@ def printRelatedBooks(url):
             other_book_url = "http://www.perseus.tufts.edu/hopper/text?doc=" + regex.findall(str(script))[0]
             other_book_soup = BeautifulSoup(urllib.request.urlopen(other_book_url).read(),"html.parser")
             title = other_book_soup.find("div", attrs={"id": "header_text"}).get_text().replace("\n", "").replace("&apos;", "'")
-
-            rek = re.compile('(?<=\w)(\\t)(?=\w)')
-            title = rek.sub(' ', title)
-
-            zcy = re.compile('(\\t)')
-            title = zcy.sub('', title)
-
             books[title] = other_book_url
 
     print(books)
