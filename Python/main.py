@@ -41,10 +41,12 @@ def printRelatedBooks(url):
 
             books[title] = other_book_url
 
-            
-    print(books)
 
-
+    bks = ast.literal_eval(str(books))
+    i = 0
+    while (i < len(bks.keys())):
+        print(list(bks.keys())[i] + " : " + bks[list(bks.keys())[i]])
+        i = i + 1
 
 printText(url)
 printRelatedBooks(url)
