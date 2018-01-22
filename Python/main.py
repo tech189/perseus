@@ -32,6 +32,8 @@ def printRelatedBooks(url):
             other_book_url = "http://www.perseus.tufts.edu/hopper/text?doc=" + regex.findall(str(script))[0]
             other_book_soup = BeautifulSoup(urllib.request.urlopen(other_book_url).read(),"html.parser")
             title = other_book_soup.find("div", attrs={"id": "header_text"}).get_text().replace("\n", "").replace("&apos;", "'")
+            regex2 = re.compile("\\t")
+            title = 
             books[title] = other_book_url
     print(books)
 
