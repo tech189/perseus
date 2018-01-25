@@ -33,11 +33,11 @@ def printRelatedBooks(url):
             other_book_soup = BeautifulSoup(urllib.request.urlopen(other_book_url).read(),"html.parser")
             title = other_book_soup.find("div", attrs={"id": "header_text"}).get_text().replace("\n", "").replace("&apos;", "'")
 
-            rek = re.compile('(?<=\w)(\\t)(?=\w)')
-            title = rek.sub(' ', title)
+            regex2 = re.compile('(?<=\w)(\\t)(?=\w)')
+            title = regex2.sub(' ', title)
 
-            zcy = re.compile('(\\t)')
-            title = zcy.sub('', title)
+            regex3 = re.compile('(\\t)')
+            title = regex3.sub('', title)
 
             books[title] = other_book_url
 
