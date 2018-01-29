@@ -2,7 +2,7 @@
 from bs4 import BeautifulSoup
 import urllib.request
 import re, ast 
-import "mysql.connector"
+import mysql.connector
 
 if input("Demo text? (y/n) ").upper() == "Y":
     url ="http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0133"
