@@ -9,6 +9,10 @@ if input("Demo text? (y/n) ").upper() == "Y":
 else:
     url = input("Type in a perseus url: \n")
 
+connection = mysql.connector.connect(user="pi", password="root", host="localhost", database="perseus")
+
+connection.close()
+
 html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
 
 def printText(url):
