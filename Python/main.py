@@ -49,7 +49,7 @@ def readDatabase():
     row = cursor.fetchone()
     
     while row is not None:
-        print row[0], row[1]
+        print(row[0], row[1])
         row = cursor.fetchone()
 
     cursor.close()
