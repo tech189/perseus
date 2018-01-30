@@ -1,19 +1,8 @@
 # This Python file uses the following encoding: utf-8
 from bs4 import BeautifulSoup
 import urllib.request
-import re, ast 
+import re, ast, sys
 import mysql.connector
-
-if input("Demo text? (y/n) ").upper() == "Y":
-    url ="http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0133"
-else:
-    url = input("Type in a perseus url: \n")
-
-connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
-
-connection.close()
-
-html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
 
 def printText(url):
     texts = html_soup.find('div', attrs={'class': 'text_container'}).get_text()
@@ -53,5 +42,37 @@ def printRelatedBooks(url):
         print(list(bks.keys())[i] + " : " + bks[list(bks.keys())[i]])
         i = i + 1
 
-printText(url)
-printRelatedBooks(url)
+def readDatabase():
+    connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
+    cursor = connection.cursor()
+    number_of_rows= cursor.execute("SELECT * FROM Table_name") 
+
+    for j in range (number_of_rows):
+	    print(row[j])
+
+    connection.close()
+
+
+help_text = "Perseus scraper\nArguments:\n\t-d\tDemo text (Homer's Iliad Book 1 Line 1)\n\t-u\tScrapes a specific url\n\t-t\tTests the database"
+
+if len(sys.argv) < 2:
+    print(help_text)
+elif sys.argv[1] == "-d":
+    url ="http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0133"
+    html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
+    printText(url)
+    printRelatedBooks(url)
+elif sys.argv[1] == "-u":
+    url = sys.argv[2]
+    html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
+    printText(url)
+    printRelatedBooks(url)
+elif sys.argv[1] == "-t":
+    readDatabase()
+else:
+    print(help_text)
+
+
+
+
+
