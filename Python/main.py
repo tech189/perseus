@@ -45,11 +45,14 @@ def printRelatedBooks(url):
 def readDatabase():
     connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
     cursor = connection.cursor()
-    number_of_rows= cursor.execute("SELECT * FROM Table_name") 
+    cursor.execute("SELECT text_id, text_title FROM texts")
+    row = cursor.fetchone()
+    
+    while row is not None:
+        print row[0], row[1]
+        row = cursor.fetchone()
 
-    for j in range (number_of_rows):
-	    print(row[j])
-
+    cursor.close()
     connection.close()
 
 
