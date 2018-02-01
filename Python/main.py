@@ -13,8 +13,13 @@ def printText(url):
         texts = texts.replace(character,"")
 
     result = ''.join([i for i in texts if not i.isdigit()])
-
     print(result)
+
+    connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
+    cursor = connection.cursor()
+    add_text = ("INSERT INTO texts " "(text_content) " "VALUES '(%s)'")
+    cursor.execute(add_text,(result,))
+    print("Added to texts table")
 
 def printRelatedBooks(url):
     books = {}
@@ -47,7 +52,9 @@ def readDatabase():
     cursor = connection.cursor()
     cursor.execute("SELECT text_id, text_title FROM texts")
     row = cursor.fetchone()
-    
+
+    if row is None:
+        print("Empty texts table")
     while row is not None:
         print(row[0], row[1])
         row = cursor.fetchone()
@@ -64,7 +71,7 @@ elif sys.argv[1] == "-d":
     url ="http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0133"
     html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
     printText(url)
-    printRelatedBooks(url)
+   # printRelatedBooks(url)
 elif sys.argv[1] == "-u":
     url = sys.argv[2]
     html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
