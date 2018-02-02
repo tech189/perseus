@@ -17,8 +17,9 @@ def printText(url):
 
     connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
     cursor = connection.cursor()
-    add_text = ("INSERT INTO texts " "(text_content) " "VALUES '(%s)'")
-    cursor.execute(add_text,(result,))
+    #add_text = "INSERT INTO texts (text_content) VALUES (%s)"
+    cursor.execute("INSERT INTO texts (text_content) VALUES ('%s')", result)
+    connection.commit()
     print("Added to texts table")
 
 def printRelatedBooks(url):
