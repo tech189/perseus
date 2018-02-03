@@ -59,7 +59,7 @@ def insertData(text_title, text_content, related_texts):
     connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
     cursor = connection.cursor()
 
-    cursor.execute("INSERT INTO texts (text_link, text_title, text_content, related_texts_links) VALUES ('%s', '%s', '%s', '%s')" %(url, text_title, text_content, related_texts))
+    cursor.execute("INSERT INTO texts (text_link, text_title, text_content, related_texts_links) VALUES ('%s, %s, %s, %s')" %(url, text_title, text_content, related_texts))
     connection.commit()
 
     print("Added to texts table")
