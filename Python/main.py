@@ -14,7 +14,7 @@ def getTextContent(url):
     for character in r:
         texts = texts.replace(character,"")
 
-    result = ''.join([i for i in texts if not i.isdigit()])
+    #result = ''.join([i for i in texts if not i.isdigit()])
 
     print("The content of the text: " + result[0:50])
 
