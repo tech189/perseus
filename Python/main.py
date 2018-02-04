@@ -16,9 +16,9 @@ def getTextContent(url):
 
     #result = ''.join([i for i in texts if not i.isdigit()])
 
-    print("The content of the text: " + result[0:50])
+    print("The content of the text: " + texts[0:50])
 
-    return result
+    return texts
 
 def getTextTitle(url):
     title = html_soup.title.string
