@@ -4,9 +4,7 @@ import urllib.request
 import re, ast, sys
 import mysql.connector
 
-text_content = ""
-text_title = ""
-related_texts = ""
+
 
 def getTextContent(url):
     texts = html_soup.find('div', attrs={'class': 'text_container'}).get_text()
@@ -17,15 +15,17 @@ def getTextContent(url):
         texts = texts.replace(character,"")
 
     result = ''.join([i for i in texts if not i.isdigit()])
-    text_content = result
 
-    print("The content of the text: " + result)
+    print("The content of the text: " + result[0:50])
+
+    return result
 
 def getTextTitle(url):
     title = html_soup.title.string
-    text_title = title
 
     print("Title is:" + title)
+
+    return title
 
 def getRelatedTexts(url):
     books = {}
@@ -54,11 +54,9 @@ def getRelatedTexts(url):
         print(list(bks.keys())[i] + " : " + bks[list(bks.keys())[i]])
         i = i + 1
 
-    related_texts = bks
+    return bks
 
-def insertData(text_title, text_content, related_texts):
-    print("URL" + url)
-    print("title" + text_title)
+def insertData(text_title, text_content, related_texts):    
     
     connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
     cursor = connection.cursor()
@@ -71,6 +69,7 @@ def insertData(text_title, text_content, related_texts):
 
     cursor.close()
     connection.close()
+    
 
 def readDatabase():
     connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
@@ -95,9 +94,9 @@ if len(sys.argv) < 2:
 elif sys.argv[1] == "-d":
     url ="http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0133"
     html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
-    getTextTitle(url)
-    getTextContent(url)
-    getRelatedTexts(url)
+    text_title = getTextTitle(url)
+    text_content = getTextContent(url)
+    related_texts = getRelatedTexts(url)
     insertData(text_title, text_content, related_texts)
 
 elif sys.argv[1] == "-u":
