@@ -7,7 +7,7 @@ import mysql.connector
 
 
 def getTextContent(url):
-    texts = html_soup.find('div', attrs={'class': 'text_container'}).get_text()
+    texts = html_soup.find('div', attrs={'class': 'text'}).get_text()
     texts = re.sub('\s{2,}',' ', texts)
     r = "[]%$£@±^&*+=\{\}"
 
