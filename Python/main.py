@@ -56,7 +56,9 @@ def getRelatedTexts(url):
 
     return bks
 
-def insertData(text_title, text_content, related_texts):    
+def insertData(text_title, text_content, related_texts):
+    text_title = text_title.replace("'", "\\'")
+    text_content = text_content.replace("'", "\\'")
     related_texts = str(related_texts)
     related_texts = related_texts.replace("'", "\\'")
     '''
