@@ -57,7 +57,20 @@ def getRelatedTexts(url):
     return bks
 
 def insertData(text_title, text_content, related_texts):    
-    
+    related_texts = str(related_texts)
+    related_texts = related_texts.replace("'", "\\'")
+    '''
+    #This can be used later to unescape the "\'"
+    bks = bks.replace("\\'", "'")
+    print(bks)
+    bks = ast.literal_eval(bks)
+    i = 0
+    print("\nRelated books:")
+    while (i < len(bks.keys())):
+        print(list(bks.keys())[i] + " : " + bks[list(bks.keys())[i]])
+        i = i + 1
+    '''
+
     connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
     cursor = connection.cursor()
 
@@ -69,7 +82,6 @@ def insertData(text_title, text_content, related_texts):
 
     cursor.close()
     connection.close()
-    
 
 def readDatabase():
     connection = mysql.connector.connect(user="root", password="root", host="localhost", database="perseus")
