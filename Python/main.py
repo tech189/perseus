@@ -9,7 +9,7 @@ import mysql.connector
 def getTextContent(url):
     texts = html_soup.find('div', attrs={'class': 'text'}).get_text()
     texts = re.sub('\s{2,}',' ', texts)
-    r = "[]%$£@±^&*+=\{\}"
+    r = "$£@±^&*+=\{\}"
 
     for character in r:
         texts = texts.replace(character,"")
