@@ -106,17 +106,12 @@ if len(sys.argv) < 2:
 elif sys.argv[1] == "-d":
     url ="http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0133"
     html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
-    text_title = getTextTitle(url)
-    text_content = getTextContent(url)
-    related_texts = getRelatedTexts(url)
-    insertData(text_title, text_content, related_texts)
+    insertData(getTextTitle(url), getTextContent(url), getRelatedTexts(url))
 
 elif sys.argv[1] == "-u":
     url = sys.argv[2]
     html_soup = BeautifulSoup(urllib.request.urlopen(url).read(),'html.parser')
-    getTextTitle(url)
-    getTextContent(url)
-    getRelatedTexts(url)
+    insertData(getTextTitle(url), getTextContent(url), getRelatedTexts(url))
 elif sys.argv[1] == "-t":
     readDatabase()
 else:
